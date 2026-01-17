@@ -15,13 +15,18 @@ script = ExtResource("1_a2x0p")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.59221, 0.544964, -37.3759)
 inventory = ["toygun", "building_card"]
 
+[node name="HealthManager" parent="PlayerEntity" index="1"]
+visible = false
+
 [node name="TrainingArea" parent="." instance=ExtResource("4_6m47g")]
+visible = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource("5_2vc36")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.138435, 0.820941, -0.553978, -0.35771, 0.56305, 0.744996, 0.923515, 0.0950299, 0.371605, 0, 26.3786, -5.7794)
+visible = false
 layers = 2
 light_color = Color(0.992157, 0.917647, 0.698039, 1)
 light_angular_distance = 3.0
@@ -34,6 +39,7 @@ directional_shadow_blend_splits = true
 
 [node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-4.37114e-08, -1, -4.37114e-08, 8.74228e-08, 4.37114e-08, -1, 1, -4.37114e-08, 8.74228e-08, 0, 13.9098, -17.1364)
+visible = false
 layers = 2
 light_color = Color(0.303129, 0.18483, 0.0558749, 1)
 light_energy = 1.239

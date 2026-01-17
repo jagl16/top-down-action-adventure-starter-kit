@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://c8j7k3l2m4n5o"]
+
+[ext_resource type="PackedScene" uid="uid://dfam82avfcqmy" path="res://scenes/level1/level1_training_area.tscn" id="1_training"]
+[ext_resource type="PackedScene" uid="uid://jga6pbb5xpug" path="res://characters/player/PlayerEntity.tscn" id="2_player"]
+[ext_resource type="Environment" uid="uid://dtrxire26wyng" path="res://scenes/level1/level1_env.tres" id="3_env"]
+
+[node name="Playground" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = ExtResource("3_env")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="TrainingArea" parent="." instance=ExtResource("1_training")]
+
+[node name="PlayerEntity" parent="." instance=ExtResource("2_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 5, -17)

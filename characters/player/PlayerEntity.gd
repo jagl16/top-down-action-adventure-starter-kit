@@ -1,10 +1,13 @@
 class_name PlayerEntity
 extends CharacterBody3D
 
-@onready var camera:Camera3D = $CameraPivot/ThirdPersonCamera
-@onready var camera_pivot:Node3D = $CameraPivot
+@onready var camera: Camera3D = $CameraPivot/ThirdPersonCamera
+@onready var camera_pivot: Node3D = $CameraPivot
 @onready var model := $IcySkin
 @onready var health_manager := $HealthManager
+@onready var stamina_manager := $StaminaManager
+@onready var stamina_bar := $StaminaBar
+
 @onready var anim_tree := $IcySkin/AnimationTree
 @onready var shoot_anchor := $IcySkin/%ShootAnchor
 @onready var current_controller := $TwoStickControllerAuto
@@ -12,14 +15,15 @@ extends CharacterBody3D
 @onready var position_resetter := $PositionResetter
 @onready var start_position := global_transform.origin
 
-@export var use_saved_controller:bool = true
-@export var controller_schemes:Array[PackedScene]
-@export var game_data:GameDataStore
+@export var use_saved_controller: bool = true
+@export var controller_schemes: Array[PackedScene]
+@export var game_data: GameDataStore
 
-@export var inventory:Array = []
+@export var inventory: Array = []
 signal is_dead
 
 func _ready():
+	stamina_bar.initialize(stamina_manager)
 	game_data.controller_scheme_changed.connect(_on_controller_scheme_changed)
 	if use_saved_controller:
 		_on_controller_scheme_changed(game_data.controller_scheme)

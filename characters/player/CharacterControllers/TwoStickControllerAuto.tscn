@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://bbqo5iflkvpm8" path="res://characters/player/CharacterControllers/StateMachines/MovementController/Run.gd" id="4_py43y"]
 [ext_resource type="Script" uid="uid://dxjcook3oejdt" path="res://characters/player/CharacterControllers/StateMachines/MovementController/Jump.gd" id="5_5oia6"]
 [ext_resource type="Script" uid="uid://dwu4g3r67miio" path="res://characters/player/CharacterControllers/StateMachines/MovementController/Fall.gd" id="6_rsaox"]
+[ext_resource type="Script" path="res://characters/player/CharacterControllers/StateMachines/MovementController/Sprint.gd" id="7_sprint"]
 [ext_resource type="Script" uid="uid://clon5upa8kqdh" path="res://characters/player/CharacterControllers/StateMachines/AimingController_RStick_Auto/Aim.gd" id="7_mt4ug"]
 [ext_resource type="Script" uid="uid://daaue81huxeiw" path="res://characters/player/CharacterControllers/StateMachines/Dead.gd" id="8_58u8j"]
 [ext_resource type="Script" uid="uid://cv8vwx2vwtgul" path="res://characters/player/CharacterControllers/StateMachines/AimingController_RStick/Rest.gd" id="9_b8asx"]
@@ -26,6 +27,10 @@ script = ExtResource("3_1xdhr")
 
 [node name="Run" type="Node" parent="MovementController/Move"]
 script = ExtResource("4_py43y")
+
+[node name="Sprint" type="Node" parent="MovementController/Move"]
+script = ExtResource("7_sprint")
+
 
 [node name="Jump" type="Node" parent="MovementController/Move"]
 script = ExtResource("5_5oia6")

@@ -16,12 +16,10 @@ polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Arr
 
 [sub_resource type="Resource" id="Resource_nxsf6"]
 script = ExtResource("4_x0kdb")
-inverse_polarity = false
 switch = NodePath("DoorSwitch2")
 
 [sub_resource type="Resource" id="Resource_2yck4"]
 script = ExtResource("4_x0kdb")
-inverse_polarity = false
 switch = NodePath("DoorSpawner")
 
 [node name="Node3D" type="Node3D"]
@@ -47,6 +45,9 @@ transform = Transform3D(-1, -1.81e-06, -1.03316e-07, -1.81e-06, 1, -4.84987e-07,
 to_spawn = ExtResource("6_46hhq")
 time_between_waves = 12
 nb_spawn_by_wave = 2
+
+[node name="DoorSpawner_Opening" parent="NavigationRegion3D/GridMap/SwitchHub/DoorSpawner/DoorSpawner_Frame" index="0"]
+transform = Transform3D(-1, 0, 2.5351817e-06, 0, 1, 0, -2.5351817e-06, 0, -1, -0.675713, 0.572169, 0.231301)
 
 [node name="EnemySpawner" parent="NavigationRegion3D/GridMap/SwitchHub/DoorSpawner" index="1"]
 transform = Transform3D(-1, -5.01073e-14, 8.74228e-08, 7.70801e-15, 1, -1.13687e-13, -8.74228e-08, 0, -1, 0, 2, -3)

@@ -13,10 +13,6 @@ func _enter_tree():
 	var hotspot:Vector2 = Vector2(16,16) if cursor_arrow else Vector2.ZERO
 	Input.set_custom_mouse_cursor(cursor_arrow, Input.CURSOR_ARROW, hotspot)
 	Input.set_custom_mouse_cursor(cursor_hand, Input.CURSOR_POINTING_HAND, hotspot)
-	#print("Hello!")
-	#print("%s is waiting for his parent '%s'" % [self.name, _parent.name])
-	#await _parent.ready
-	#print("%s's parent '%s' is ready!" % [self.name, _parent.name])
 
 
 func _ready():

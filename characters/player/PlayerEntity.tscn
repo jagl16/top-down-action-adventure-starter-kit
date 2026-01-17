@@ -1,13 +1,15 @@
-[gd_scene load_steps=12 format=3 uid="uid://jga6pbb5xpug"]
+[gd_scene load_steps=14 format=3 uid="uid://jga6pbb5xpug"]
 
 [ext_resource type="PackedScene" uid="uid://ds848t2x4cxyt" path="res://characters/player/CharacterSkins/IcySkin_inherited.tscn" id="1"]
 [ext_resource type="Script" uid="uid://dd4mw3ie8o5yh" path="res://characters/player/PlayerEntity.gd" id="2"]
-[ext_resource type="Resource" uid="uid://bj1ewi4mrx1c6" path="res://ui/game_data_store.tres" id="2_gbwfc"]
+[ext_resource type="Resource" path="res://ui/game_data_store.tres" id="2_gbwfc"]
 [ext_resource type="PackedScene" uid="uid://d3yswfl2m7nue" path="res://characters/player/CharacterControllers/OneStickController.tscn" id="2_njm8p"]
 [ext_resource type="PackedScene" uid="uid://d1rmoxdu5yefv" path="res://characters/player/CharacterControllers/TwoStickController.tscn" id="3_k2os6"]
 [ext_resource type="PackedScene" uid="uid://drvgaalhd5v8s" path="res://characters/player/CharacterControllers/TwoStickControllerAuto.tscn" id="5_n2q7r"]
 [ext_resource type="PackedScene" uid="uid://bwf5frggyeobl" path="res://characters/player/CharacterControllers/KeyboardMouseController.tscn" id="5_rys30"]
 [ext_resource type="PackedScene" uid="uid://c5l20701ck6co" path="res://characters/player/health_manager.tscn" id="6_7wv34"]
+[ext_resource type="PackedScene" uid="uid://df32is88aiopk" path="res://characters/player/StaminaBar.tscn" id="10_4due5"]
+[ext_resource type="Script" uid="uid://cy2xmybi2ibql" path="res://characters/player/stamina_manager.gd" id="11_stamina"]
 [ext_resource type="Script" uid="uid://r1dxcp1n2377" path="res://characters/PositionResetter.gd" id="14"]
 
 [sub_resource type="CapsuleShape3D" id="1"]
@@ -27,7 +29,23 @@ game_data = ExtResource("2_gbwfc")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.987748, 0)
 shape = SubResource("1")
 
+[node name="StaminaBar" parent="." instance=ExtResource("10_4due5")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_right = 0.0
+offset_left = 8.0
+offset_top = -107.0
+offset_right = 208.0
+offset_bottom = -57.0
+grow_horizontal = 1
+grow_vertical = 0
+
 [node name="HealthManager" parent="." instance=ExtResource("6_7wv34")]
+
+[node name="StaminaManager" type="Node" parent="."]
+script = ExtResource("11_stamina")
+cooldown_time = 3.0
+regeneration_time = 1.5
 
 [node name="PositionResetter" type="Node" parent="."]
 script = ExtResource("14")
