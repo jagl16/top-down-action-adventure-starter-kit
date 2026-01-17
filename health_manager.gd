@@ -1,50 +1,80 @@
 extends Node
 
-signal health_changed(old_value, new_value)
-signal damage
-signal health_depleted
+signal health_changed(current_value, max_value)
+signal shield_changed(current_value, max_value)
+signal damage_taken(amount)
+signal shield_damaged(amount)
+signal died
 signal health_replenished
 
-@export var ui_hearts: Array[TextureRect]
-@export var max_health: int = 6
-@export var start_health: int = 6
+@export var max_health: int = 100
+@export var start_health: int = 100
+@export var max_shield: int = 125 # Default 5 cells * 25
+@export var start_shield: int = 0
+@export var shield_cell_value: int = 25
 
-var heart_full = preload("res://assets/objects/heart_full.png")
-var heart_empty = preload("res://assets/objects/heart_null.png")
-var heart_half = preload("res://assets/objects/heart_half.png")
-
-var health_points: int = 0: set = set_health
+var health: float = 0.0: set = set_health
+var shield: float = 0.0: set = set_shield
 
 func _ready():
-	health_points = start_health
+	health = start_health
+	shield = start_shield
+	# Emit initial values
+	call_deferred("emit_status_signals")
 
-func set_health(value:int):
-	health_changed.emit(health_points, value)
-	health_points = value
-	update_ui_hearts(health_points)
-	if health_points <= 0:
-		health_depleted.emit()
-	if health_points == max_health:
+func emit_status_signals():
+	health_changed.emit(health, max_health)
+	shield_changed.emit(shield, max_shield)
+
+func set_health(value: float):
+	var previous = health
+	health = clamp(value, 0, max_health)
+	
+	if health != previous:
+		health_changed.emit(health, max_health)
+		
+	if health <= 0 and previous > 0:
+		died.emit()
+	if health == max_health and previous != max_health:
 		health_replenished.emit()
 
-func update_ui_hearts(value):
-	for i in len(ui_hearts):
-		if value > i * 2 + 1:
-			ui_hearts[i].texture = heart_full
-		elif value > i * 2:
-			ui_hearts[i].texture = heart_half
-		else:
-			ui_hearts[i].texture = heart_empty
+func set_shield(value: float):
+	var previous = shield
+	shield = clamp(value, 0, max_shield)
+	
+	if shield != previous:
+		shield_changed.emit(shield, max_shield)
 
-func get_damage(amount:int):
-	health_points = max(0, health_points - amount)
-	damage.emit()
+func get_damage(amount: int):
+	if shield > 0:
+		var damage_to_shield = min(shield, amount)
+		shield -= damage_to_shield
+		amount -= damage_to_shield
+		shield_damaged.emit(damage_to_shield)
+		
+	if amount > 0:
+		get_damage_direct(amount)
 
-func get_health(amount:int):
-	health_points = min(max_health, health_points + amount)
+func get_damage_direct(amount: int):
+	health -= amount
+	damage_taken.emit(amount)
+
+func add_health(amount: float, duration: float = 0.0):
+	if duration <= 0:
+		health += amount
+	else:
+		var tween = create_tween()
+		tween.tween_method(func(val): health = val, health, min(health + amount, max_health), duration)
+
+func add_shield(amount: float, duration: float = 0.0):
+	if duration <= 0:
+		shield += amount
+	else:
+		var tween = create_tween()
+		tween.tween_method(func(val): shield = val, shield, min(shield + amount, max_shield), duration)
 
 func get_full_health():
-	health_points = max_health
+	health = max_health
 
 func instant_death():
-	health_points = 0
+	health = 0

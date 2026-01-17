@@ -7,6 +7,7 @@ extends CharacterBody3D
 @onready var health_manager := $HealthManager
 @onready var stamina_manager := $StaminaManager
 @onready var stamina_bar := $StaminaBar
+@onready var status_ui := $PlayerStatusUI
 
 @onready var anim_tree := $IcySkin/AnimationTree
 @onready var shoot_anchor := $IcySkin/%ShootAnchor
@@ -24,6 +25,7 @@ signal is_dead
 
 func _ready():
 	stamina_bar.initialize(stamina_manager)
+	status_ui.initialize(health_manager)
 	game_data.controller_scheme_changed.connect(_on_controller_scheme_changed)
 	if use_saved_controller:
 		_on_controller_scheme_changed(game_data.controller_scheme)
@@ -31,7 +33,7 @@ func _ready():
 	Dialogic.timeline_ended.connect(_on_dialog_ended)
 
 
-func on_hit():
+func on_hit(_amount):
 	model.play_on_hit(true)
 
 

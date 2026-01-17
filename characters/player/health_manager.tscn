@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c5l20701ck6co"]
+[gd_scene load_steps=6 format=3 uid="uid://b8lehfdchaywq"]
 
 [ext_resource type="Script" uid="uid://bbjo1jvxvmfn0" path="res://health_manager.gd" id="1_kkp7n"]
 [ext_resource type="FontFile" uid="uid://dgn5mdix5re20" path="res://ui/fonts/Montserrat-Bold.ttf" id="2_vjroa"]
@@ -13,7 +13,7 @@ shadow_size = 2
 shadow_color = Color(0, 0, 0, 0.673)
 shadow_offset = Vector2(3.145, 1)
 
-[node name="HealthManager" type="Control" node_paths=PackedStringArray("ui_hearts")]
+[node name="HealthManager" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -24,7 +24,6 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 2
 script = ExtResource("1_kkp7n")
-ui_hearts = [NodePath("HBoxContainer/p1"), NodePath("HBoxContainer/p2"), NodePath("HBoxContainer/p3"), NodePath("HBoxContainer/p4"), NodePath("HBoxContainer/p5")]
 metadata/_edit_lock_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]

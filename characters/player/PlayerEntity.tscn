@@ -7,9 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://d1rmoxdu5yefv" path="res://characters/player/CharacterControllers/TwoStickController.tscn" id="3_k2os6"]
 [ext_resource type="PackedScene" uid="uid://drvgaalhd5v8s" path="res://characters/player/CharacterControllers/TwoStickControllerAuto.tscn" id="5_n2q7r"]
 [ext_resource type="PackedScene" uid="uid://bwf5frggyeobl" path="res://characters/player/CharacterControllers/KeyboardMouseController.tscn" id="5_rys30"]
-[ext_resource type="PackedScene" uid="uid://c5l20701ck6co" path="res://characters/player/health_manager.tscn" id="6_7wv34"]
+[ext_resource type="Script" uid="uid://bbjo1jvxvmfn0" path="res://health_manager.gd" id="6_logic"]
 [ext_resource type="PackedScene" uid="uid://df32is88aiopk" path="res://characters/player/StaminaBar.tscn" id="10_4due5"]
 [ext_resource type="Script" uid="uid://cy2xmybi2ibql" path="res://characters/player/stamina_manager.gd" id="11_stamina"]
+[ext_resource type="PackedScene" path="res://ui/PlayerStatusUI.tscn" id="12_ui"]
 [ext_resource type="Script" uid="uid://r1dxcp1n2377" path="res://characters/PositionResetter.gd" id="14"]
 
 [sub_resource type="CapsuleShape3D" id="1"]
@@ -40,7 +41,18 @@ offset_bottom = -57.0
 grow_horizontal = 1
 grow_vertical = 0
 
-[node name="HealthManager" parent="." instance=ExtResource("6_7wv34")]
+[node name="HealthManager" type="Node" parent="."]
+script = ExtResource("6_logic")
+
+[node name="PlayerStatusUI" parent="." instance=ExtResource("12_ui")]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -200.0
+offset_right = 316.0
+offset_bottom = -100.0
+grow_vertical = 0
 
 [node name="StaminaManager" type="Node" parent="."]
 script = ExtResource("11_stamina")
@@ -69,5 +81,6 @@ collision_mask = 8
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.00531, 0.798733)
 shape = SubResource("SphereShape3D_q0x46")
 
-[connection signal="damage" from="HealthManager" to="." method="on_hit"]
-[connection signal="health_depleted" from="HealthManager" to="." method="on_death"]
+[connection signal="damage_taken" from="HealthManager" to="." method="on_hit"]
+[connection signal="died" from="HealthManager" to="." method="on_death"]
+
